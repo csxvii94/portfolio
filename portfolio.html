@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christian Santos - SEO Specialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --accent: #00ff41;
+            --accent-dim: #00cc34;
+            --gray: #666;
+            --gray-light: #999;
+            --border: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Darker Grotesque', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            font-weight: 400;
+        }
+
+        .mono {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: var(--gray-light);
+            max-width: 800px;
+            margin-bottom: 3rem;
+            font-weight: 500;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .stat {
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Grid Background Effect */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(var(--accent) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .section-title {
+            flex: 1;
+        }
+
+        /* Case Studies */
+        .case-study {
+            border: 1px solid var(--border);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .case-study:hover {
+            border-color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        .case-study::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .case-study:hover::before {
+            transform: scaleY(1);
+        }
+
+        .case-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: var(--black);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .case-title {
+            margin-bottom: 1rem;
+        }
+
+        .case-description {
+            color: var(--gray-light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .case-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: var(--gray-light);
+            line-height: 1.7;
+        }
+
+        /* Process */
+        .process-steps {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .step-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: var(--gray-light);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+        }
+
+        .contact-label {
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .contact-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .contact-value a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            background: var(--accent);
+            color: var(--black);
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                min-height: auto;
+                padding: 3rem 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                grid-template-columns: 60px 1fr;
+                gap: 1rem;
+            }
+
+            .step-number {
+                font-size: 3rem;
+            }
+
+            .case-study {
+                padding: 2rem;
+            }
+
+            .service-card {
+                padding: 2rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="grid-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="mono" style="color: var(--accent); margin-bottom: 1rem;">SEO SPECIALIST</div>
+                <h1>I turn websites into <span class="accent-text">revenue engines</span></h1>
+                <p class="hero-subtitle">
+                    Technical SEO, content optimization, and authority building that drives measurable business growth. 
+                    Not just rankings—real traffic, real conversions, real results.
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number">40-88%</div>
+                        <div class="stat-label">Visibility increase for multi-location clients</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">DR 0→29</div>
+                        <div class="stat-label">Domain authority growth in 12 months</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">136%</div>
+                        <div class="stat-label">Average traffic increase on optimized pages</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4+ years</div>
+                        <div class="stat-label">Remote SEO execution across industries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Selected Work</h2>
+            </div>
+
+            <!-- Case Study 1: Multi-location Restaurant -->
+            <div class="case-study">
+                <div class="case-tag">Local SEO</div>
+                <h3 class="case-title">Multi-Location Restaurant Chain</h3>
+                <p class="case-description">
+                    <strong>Challenge:</strong> Seven restaurant locations struggling with local search visibility and inconsistent Google Business Profile performance across markets.
+                    <br><br>
+                    <strong>Solution:</strong> Executed comprehensive local SEO strategy including GBP optimization, local content creation, citation building, and location-specific schema implementation. Published weekly GBP posts with visual assets, optimized service pages for each location, and built location-based landing pages targeting high-intent local searches.
+                    <br><br>
+                    <strong>Outcome:</strong> Dramatic visibility increases across all locations, with profile views reaching 242K in New York (73% increase) and search impressions growing 71-88% across markets. Strong local pack rankings for competitive "vegan restaurant" queries, translating visibility into actual bookings.
+                </p>
+                <div class="case-metrics">
+                    <div class="metric">
+                        <div class="metric-value">73%</div>
+                        <div class="metric-label">Profile Views Increase</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">88%</div>
+                        <div class="metric-label">Search Impressions Growth</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">4,100+</div>
+                        <div class="metric-label">Total Monthly Bookings</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">#1-3</div>
+                        <div class="metric-label">Local Pack Rankings</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 2: Translation Platform -->
+            <div class="case-study">
+                <div class="case-tag">Content + Technical SEO</div>
+                <h3 class="case-title">International Translation Services Platform</h3>
+                <p class="case-description">
+                    <strong>Challenge:</strong> Multilingual SaaS platform with underperforming blog content, technical SEO issues blocking indexation, and fragmented content structure preventing organic growth.
+                    <br><br>
+                    <strong>Solution:</strong> Conducted technical audit identifying 219 indexable URLs missing from sitemap, 161 broken URLs, and critical security issues. Executed content consolidation strategy—analyzing top keywords, optimizing articles for search intent, restructuring for featured snippets. Implemented advanced schema markup (Organization, Service, FAQ, BreadcrumbList) for rich snippet opportunities.
+                    <br><br>
+                    <strong>Outcome:</strong> Blog traffic increased 66-136% across consolidated articles within 5 weeks. Fixed homepage indexation issues leading to consistent keyword growth. Created structured data framework capturing more SERP real estate through FAQ boxes and enhanced listings.
+                </p>
+                <div class="case-metrics">
+                    <div class="metric">
+                        <div class="metric-value">136%</div>
+                        <div class="metric-label">Peak Traffic Increase</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">219</div>
+                        <div class="metric-label">Indexation Issues Fixed</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">5 weeks</div>
+                        <div class="metric-label">Time to Results</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Schema Implementation</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 3: Authority Building -->
+            <div class="case-study">
+                <div class="case-tag">Link Building</div>
+                <h3 class="case-title">Growing Brand (Limited Budget)</h3>
+                <p class="case-description">
+                    <strong>Challenge:</strong> New website with zero domain authority (DR 0) competing in a crowded market. Limited budget meant traditional link building agencies were not viable. Needed sustainable, cost-effective authority growth.
+                    <br><br>
+                    <strong>Solution:</strong> Developed strategic link building campaign focusing on high-quality prospects vs. volume. Executed broken link outreach, resource page placement, and relevant directory submissions. Prioritized editorial links from industry-relevant sources. Built authority systematically with consistent monthly execution.
+                    <br><br>
+                    <strong>Outcome:</strong> Grew domain rating from 0 to 29 in just over one year despite budget constraints. Established foundation of high-quality backlinks supporting long-term organic growth. Demonstrated that strategic execution beats big budgets.
+                </p>
+                <div class="case-metrics">
+                    <div class="metric">
+                        <div class="metric-value">0 → 29</div>
+                        <div class="metric-label">Domain Rating Growth</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">77+</div>
+                        <div class="metric-label">Referring Domains</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">12 mo</div>
+                        <div class="metric-label">Timeframe</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">77%</div>
+                        <div class="metric-label">Dofollow Links</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 4: Homepage Optimization -->
+            <div class="case-study">
+                <div class="case-tag">On-Page SEO</div>
+                <h3 class="case-title">SaaS Homepage Revival</h3>
+                <p class="case-description">
+                    <strong>Challenge:</strong> Homepage "optimized" using outdated SEO techniques, resulting in stagnant keyword rankings and poor conversion funnel alignment. Content hidden in accordions wasn't getting indexed by Google.
+                    <br><br>
+                    <strong>Solution:</strong> Restructured homepage from middle-of-funnel to bottom-of-funnel content to match buyer's journey. Incorporated semantic LSI keywords naturally. Fixed accordion indexation issues blocking content visibility. Optimized for both search engines and conversion, not just rankings.
+                    <br><br>
+                    <strong>Outcome:</strong> After fixing indexation issues, page started gaining new keywords consistently. Improved performance for branded keywords. Better alignment between search intent and conversion funnel resulted in qualified traffic growth.
+                </p>
+                <div class="case-metrics">
+                    <div class="metric">
+                        <div class="metric-value">Consistent</div>
+                        <div class="metric-label">Keyword Growth</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Indexation Fixed</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">BOFU</div>
+                        <div class="metric-label">Funnel Alignment</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Improved</div>
+                        <div class="metric-label">Branded Performance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">What I Do</h2>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3 class="service-title">Technical SEO</h3>
+                    <p class="service-description">
+                        Site audits, crawlability fixes, indexation optimization, Core Web Vitals, schema markup, canonicalization, hreflang for international sites. I find what's blocking your revenue and fix it.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📍</div>
+                    <h3 class="service-title">Local SEO</h3>
+                    <p class="service-description">
+                        Google Business Profile optimization, local pack domination, citation building, location page strategy, review management. Perfect for multi-location businesses or local service providers.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📄</div>
+                    <h3 class="service-title">Content Systems</h3>
+                    <p class="service-description">
+                        Content audits, consolidation, keyword mapping, search intent optimization, internal linking architecture. Making existing content work harder so you don't need to create more.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔗</div>
+                    <h3 class="service-title">Authority Building</h3>
+                    <p class="service-description">
+                        Strategic link building, broken link outreach, resource page placement, editorial link acquisition. Building domain authority that compounds over time, even on tight budgets.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3 class="service-title">International SEO</h3>
+                    <p class="service-description">
+                        Multilingual site optimization, hreflang implementation, international content strategy, regional keyword research. Scaling organic growth across languages and markets.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">SEO Audits</h3>
+                    <p class="service-description">
+                        Comprehensive technical, on-page, and off-page audits. Prioritized action plans with clear business impact. You get a roadmap, not just a problem list.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">How I Work</h2>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Audit & Diagnosis</h3>
+                        <p>I start by identifying what's actually blocking your growth—technical issues, content gaps, authority problems, or local visibility. Every business is different; cookie-cutter audits don't work.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Strategy & Prioritization</h3>
+                        <p>Not every SEO issue is worth fixing. I prioritize based on business impact and effort required. You get a clear roadmap focused on what moves revenue, not what looks good on a report.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Execution & Iteration</h3>
+                        <p>I execute the work—technical fixes, content optimization, link building, schema implementation. Then we measure, learn, and adjust. SEO is a system, not a one-time project.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Reporting & Growth</h3>
+                        <p>You get clear reporting on what changed and why it matters for your business. Traffic numbers mean nothing without context. I show you the path from rankings to revenue.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Let's Work Together</h2>
+            </div>
+
+            <div class="contact-grid">
+                <div>
+                    <p style="font-size: 1.5rem; line-height: 1.6; margin-bottom: 3rem; color: var(--gray-light);">
+                        I work with small-to-medium businesses that need measurable SEO results without agency overhead. 
+                        Remote, flexible, and focused on what actually drives revenue.
+                    </p>
+
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">
+                                <a href="mailto:cvxii94@gmail.com">cvxii94@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-label">Phone</div>
+                            <div class="contact-value">
+                                <a href="tel:+639369595142">+63 936 959 5142</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-label">LinkedIn</div>
+                            <div class="contact-value">
+                                <a href="https://www.linkedin.com/in/tian-santos/" target="_blank">linkedin.com/in/tian-santos</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-label">Location</div>
+                            <div class="contact-value">Philippines (Remote)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <a href="mailto:cvxii94@gmail.com" class="cta-button">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mono">© 2026 Christian Santos. SEO that drives results.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Fade in elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.case-study, .service-card, .process-step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
